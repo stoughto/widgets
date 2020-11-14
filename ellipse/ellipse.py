@@ -38,13 +38,14 @@ class Ellipse(widgets.HBox):
         initial_color = '#AA0202'
         self.plotSize = 50
         with output:
-            figTitle = "Interactive Ellipse %s"%(str(datetime.datetime.now())[:-7])
+            figTitle = "Interactive Ellipse"
             self.fig, self.ax = plt.subplots(
                 constrained_layout=True, figsize=(5, 3.5), num=figTitle)
             self.ax.set_xlim(-self.plotSize,self.plotSize)
             self.ax.set_ylim(-self.plotSize,self.plotSize)
             self.ax.set_aspect('equal')
             self.xlabel = self.ax.set_xlabel("???")
+            self.title = self.ax.set_title("????")
         self.a = 20
         self.b = 10
         self.radians = np.radians(0)
@@ -229,6 +230,7 @@ class Ellipse(widgets.HBox):
         self.foci.set_xdata(self.fxs)
         self.foci.set_ydata(self.fys)
         self.xlabel.set_text("a=%.2f b=%.2f r=%.1f x=%.1f y=%.1f"%(self.a, self.b, np.degrees(self.radians), self.x, self.y))
+        self.title.set_text(datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"))
         self.fig.canvas.draw()
     def updateXY(self):
         """calculte ellipse and foci data based on current values"""
