@@ -3,3 +3,4 @@ jupyterlab
 ipywidgets
 matplotlib
 numpy
+voila
