@@ -44,7 +44,7 @@ class Ellipse(widgets.HBox):
             self.ax.set_xlim(-self.plotSize,self.plotSize)
             self.ax.set_ylim(-self.plotSize,self.plotSize)
             self.ax.set_aspect('equal')
-            
+            self.xlabel = self.ax.set_xlabel("???")
         self.a = 20
         self.b = 10
         self.radians = np.radians(0)
@@ -56,9 +56,9 @@ class Ellipse(widgets.HBox):
         self.updateXY()
         self.line, = self.ax.plot(self.xs, self.ys, initial_color)
         self.foci,  = self.ax.plot(self.fxs, self.fys, "b+")
-         
         self.fig.canvas.toolbar_position = 'bottom'
         self.ax.grid(True)
+        self.updatePlot()
  
  
         controls = widgets.VBox([
@@ -75,7 +75,7 @@ class Ellipse(widgets.HBox):
         out_box = widgets.Box([output])
         output.layout = make_box_layout()
  
-        # observe stuff
+        # observe the slider values
         self.a_slider.observe(self.update_a, 'value')
         self.b_slider.observe(self.update_b, 'value')
         self.r_slider.observe(self.update_r, 'value')
@@ -228,6 +228,7 @@ class Ellipse(widgets.HBox):
         self.line.set_ydata(self.ys)
         self.foci.set_xdata(self.fxs)
         self.foci.set_ydata(self.fys)
+        self.xlabel.set_text("a=%.2f b=%.2f r=%.1f x=%.1f y=%.1f"%(self.a, self.b, np.degrees(self.radians), self.x, self.y))
         self.fig.canvas.draw()
     def updateXY(self):
         """calculte ellipse and foci data based on current values"""
@@ -242,6 +243,11 @@ class Ellipse(widgets.HBox):
         self.fxs,self.fys = np.dot(j,[np.array([-c,c]),np.array([0.0,0.0])])
         self.fxs += self.x
         self.fys += self.y
-        self.e_text.value = "%.2f"%(self.b/self.a)
+        ellip = self.b/self.a
+        if ellip < 0.1:
+            eText = "%.4f"%ellip
+        else:
+            eText = "%.2f"%ellip
+        self.e_text.value = eText
          
          
