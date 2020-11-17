@@ -24,7 +24,7 @@ class Ellipse(widgets.HBox):
         y -- ellipse center in y
     
     Plot the ellipse and the location of the foci, an display the value of
-    the eccentricity = b/a
+    the eccentricity = sqrt(1 - (b/a)^2)
     
     Constrain input values so a >= b
     """ 
@@ -190,7 +190,7 @@ class Ellipse(widgets.HBox):
         self.e_text = widgets.Text(
             value='?',
             placeholder='',
-            description='ellipticity:',
+            description='eccentricity:',
             disabled=True
         )
      
@@ -245,11 +245,8 @@ class Ellipse(widgets.HBox):
         self.fxs,self.fys = np.dot(j,[np.array([-c,c]),np.array([0.0,0.0])])
         self.fxs += self.x
         self.fys += self.y
-        ellip = self.b/self.a
-        if ellip < 0.1:
-            eText = "%.4f"%ellip
-        else:
-            eText = "%.2f"%ellip
+        eccentricity= np.sqrt(1-(self.b/self.a)**2)
+        eText = "%.6f"%eccentricity
         self.e_text.value = eText
          
          
