@@ -123,26 +123,26 @@ class Ellipse(widgets.HBox):
             value=self.a,
             min=0.1,
             max=30.01,
-            step=0.01,
+            step=0.001,
             description='a (semi-major axis):',
             disabled=False,
             continuous_update=False,
             orientation='horizontal',
             readout=True,
-            readout_format='.2f',
+            readout_format='.3f',
             style = {'description_width': 'initial'}
         )
         self.b_slider = widgets.FloatSlider(
             value=self.b,
             min=0.1,
             max=30.01,
-            step=0.01,
+            step=0.001,
             description='b (semi-minor axis):',
             disabled=False,
             continuous_update=False,
             orientation='horizontal',
             readout=True,
-            readout_format='.2f',
+            readout_format='.3f',
             style = {'description_width': 'initial'}
         )
         self.r_slider = widgets.FloatSlider(
@@ -229,7 +229,7 @@ class Ellipse(widgets.HBox):
         self.line.set_ydata(self.ys)
         self.foci.set_xdata(self.fxs)
         self.foci.set_ydata(self.fys)
-        self.xlabel.set_text("a=%.2f b=%.2f r=%.1f x=%.1f y=%.1f"%(self.a, self.b, np.degrees(self.radians), self.x, self.y))
+        self.xlabel.set_text("a=%.3f b=%.3f r=%.1f x=%.1f y=%.1f"%(self.a, self.b, np.degrees(self.radians), self.x, self.y))
         self.title.set_text(datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z"))
         self.fig.canvas.draw()
     def updateXY(self):
